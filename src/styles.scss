@@ -1,0 +1,92 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import './app/shared/style/shapes';
+
+/*
+ * Initial Body Style
+ */
+body{
+	margin: 0;
+	padding: 0;
+}
+
+a{
+	text-decoration: none;
+}
+
+/*
+* Global helpers
+*/
+.text-center{
+	text-align: center;
+}
+
+.click{
+	cursor: pointer;
+}
+
+.flex-spacer{
+  flex: 1 1 auto;
+}
+
+/*
+* Chrome autocomplete bg
+*/
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px rgba(255,255,255, 0.8) inset;
+}
+
+/*
+* Material Desing Global Config
+*/
+.mat-input-container{
+	display: block !important;
+	width: 100%;
+}
+
+/*
+* Material Overlay Pan fix mobile dialog positioning
+*/
+.cdk-overlay-pane{
+  width: auto !important; //fix dialog position on mobile - should test in future material versions
+}
+
+/*
+* Material Icon
+*/
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(./assets/material-icons/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(./assets/material-icons/MaterialIcons-Regular.woff2) format('woff2'),
+    url(./assets/material-icons/MaterialIcons-Regular.woff) format('woff'),
+    url(./assets/material-icons/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}

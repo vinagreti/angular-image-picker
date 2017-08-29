@@ -1,0 +1,6 @@
+@import './user-card/user-card-theming';
+
+// Apply the theme.
+@mixin user-theme($theme) {
+	@include user-card-theme($theme);
+}

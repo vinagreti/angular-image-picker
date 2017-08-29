@@ -1,0 +1,25 @@
+.wide-central-shape{
+    padding: 16px;
+    max-width: 588px;
+    margin: auto;
+
+    hr{
+        margin: 20px 0;
+    }
+
+    .wide-central-title{
+        display: flex;
+        h1{
+            display: inline-block;
+            line-height: 24px;
+            margin: 0;
+            padding: 10px;
+        }
+    }
+}
+
+.small-central-shape{
+    padding: 16px;
+    max-width: 320px;
+    margin: auto;
+}

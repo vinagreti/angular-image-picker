@@ -1,0 +1,26 @@
+<div class="wide-central-shape">
+    <h1>Welcome to UsersApp</h1>
+
+    <div *ngIf="userService.isLoggedIn(); then loggedBlock; else notLoggedBlock">Text to show</div>
+
+    <ng-template #loggedBlock>
+        <div class="logged-block">
+            <p>
+                You are logged in as <b>{{ userService.user.pluck("name") | async }}</b>
+                with <b>{{ (userService.user.pluck('isAdmin') | async) ? 'Admin' : 'User' }} privileges</b>.
+            </p>
+            <p>
+                Go to your <a routerLink="/user">Users Manager</a>
+            </p>
+        </div>
+    </ng-template>
+
+    <ng-template #notLoggedBlock>
+        <div class="not-logged-block">
+            <p>To be able to list and manage the users you must be signed in.</p>
+            <div class="text-center">
+                <a md-raised-button color="primary" routerLink="/user/login">Sign in</a>
+            </div>
+        </div>
+    </ng-template>
+</div>

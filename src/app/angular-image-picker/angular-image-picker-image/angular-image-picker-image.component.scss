@@ -1,0 +1,12 @@
+.angular-image-picker-image-wrapper{
+    display: flex;
+    margin-top: 24px;
+}
+
+.angular-image-picker-image {
+    flex: 1;
+    img{
+        max-width: 100%;
+        max-height: 100%;
+    }
+}

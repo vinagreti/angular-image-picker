@@ -1,0 +1,10 @@
+@mixin user-card-theme($theme) {
+	.user-card{
+		background-color: mat-color(map-get($theme, primary));
+		bord-color: mat-color(map-get($theme, warn));
+
+		.user-name{
+			color: #fff;
+		}
+	}
+}

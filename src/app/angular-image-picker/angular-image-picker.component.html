@@ -1,0 +1,18 @@
+<div *ngIf="files">
+	<div *ngFor="let file of files; let i = index;" class="angular-image-picker-image">
+		<angular-image-picker-image
+			[file]="file"
+		></angular-image-picker-image>
+	</div>
+</div>
+
+<form role="form" enctype="multipart/form-data">
+	<input id="files" name="files" type="file" multiple="true" #fileUpload hidden="true" (change)="updateFilesToLoad()">
+</form>
+
+<div *ngIf="!files" class="text-center click" (click)="fileUpload.click(); $event.stopPropagation();">
+	<button type="button" md-mini-fab color="accent">
+		<md-icon>add</md-icon>
+	</button>
+	<p>Selecione uma ou mais imagens</p>
+</div>

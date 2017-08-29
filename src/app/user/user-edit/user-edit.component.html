@@ -1,0 +1,12 @@
+<div class="wide-central-shape">
+    <div class="wide-central-title">
+		<a md-mini-fab color="primary" routerLink="/user">
+			<md-icon>keyboard_return</md-icon>
+		</a>
+		<span class="flex-spacer"></span>
+		<h1>Edit user '{{user?.username}}'</h1>
+		<span class="flex-spacer"></span>
+	</div>
+
+    <user-form [user]="user" (insert)="onSave()"></user-form>
+</div>

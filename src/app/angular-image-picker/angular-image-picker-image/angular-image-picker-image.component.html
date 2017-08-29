@@ -1,0 +1,20 @@
+<h1>EUUUUUU</h1>
+
+<div class="angular-image-picker-image-wrapper">
+    <div *ngIf="imageBeforeBase64" title="image before efect" class="angular-image-picker-image">
+        <img [src]="imageBeforeBase64">
+    </div>
+    <div *ngIf="imageAfterBase64" title="image after efect" class="angular-image-picker-image">
+        <img [src]="imageAfterBase64">
+    </div>
+</div>
+
+<div>
+    <h3>Efects</h3>
+    <button type="button" md-raised-button color="default" (click)="setEfect()">
+        Desfazer
+    </button>
+    <button type="button" md-raised-button color="accent" (click)="setEfect('grayScale')">
+        grayScale
+    </button>
+</div>

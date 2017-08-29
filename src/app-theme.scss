@@ -1,0 +1,25 @@
+// Import Angular Material Design components themes
+@import '~@angular/material/theming';
+
+// Import all App custom components theme.
+@import './app/all-theme';
+
+// Apply Angular Material Design global styles
+@include mat-core();
+
+// Default App Custom theme
+$primary: mat-palette($mat-teal, 500);
+$warn: mat-palette($mat-red, 600);
+$accent: mat-palette($mat-amber);
+$green-theme: mat-light-theme($primary, $accent, $warn);
+
+@include angular-material-theme($green-theme);
+@include app-components-theme($green-theme);
+
+
+/*
+* Global themed style
+*/
+a, b, h1{
+	color: mat-color($primary);
+}

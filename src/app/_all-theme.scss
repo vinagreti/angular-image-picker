@@ -1,0 +1,9 @@
+// PLUGINS THEME
+@import './user/user-theming';
+
+
+// Apply the theme.
+@mixin app-components-theme($theme) {
+	@include user-theme($theme);
+}
+
