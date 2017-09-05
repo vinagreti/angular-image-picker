@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 /*
 * Default maximum image size (in px) to optimise and reduce the image size in memory
 */
@@ -23,20 +23,32 @@ export interface ImageMetadata {
   templateUrl: './angular-image-picker-image.component.html',
   styleUrls: ['./angular-image-picker-image.component.scss']
 })
-export class AngularImagePickerImageComponent {
+export class AngularImagePickerImageComponent implements OnInit {
 
-    efect: string;
-    imageAfterBase64: string; // image after efect
-    imageBeforeBase64: string; // image before efect
+    effect: Function;
+    effects = Filters;
+    effectAdjustment: number = 1;
+    blueScaleAdjustment: number = 1;
+    greenScaleAdjustment: number = 1;
+    redScaleAdjustment: number = 1;
+    imageForm: FormGroup;
 
-    private fileBefore: File; // file from an <input type="file">
-    private fileAfter: File; // file from manipulation
+    /*
+    * Interfaces
+    */
+    @Output() imageAfterBase64: string; // image after effect
+    @Output() imageBeforeBase64: string; // image before effect
+    @Output() fileBefore: File; // file from an <input type="file">
+    @Output() fileAfter: File; // file from manipulation
+
+    /*
+    * control letiables
+    */
     private imageElementBefore: HTMLImageElement;
     private imageAfterMetadata: ImageMetadata;
     private manipulationCanvas: HTMLCanvasElement;
     private manipulationCanvasContext: CanvasRenderingContext2D;
     private reader: FileReader; // global file reader
-
 
     /*
     * @Input() File getter and setter
@@ -45,15 +57,53 @@ export class AngularImagePickerImageComponent {
       return this.fileBefore;
     }
 
-    @Input('file')
+    @Input('file') // Set in template as component attr
     set _file(fileBefore: File) {
       this.fileBefore = fileBefore;
       this.loadImages();
 
     }
 
-    constructor() {
+    constructor(
+        private formBuilder: FormBuilder
+    ) {
         this.reader = new FileReader();
+    }
+
+    ngOnInit(){
+        this.startImageForm();
+    }
+
+    private startImageForm(){
+        this.imageForm = this.formBuilder.group({
+            redScale: [this.effectAdjustment],
+            blueScale: [this.effectAdjustment],
+            greenScale: [this.effectAdjustment],
+        });
+
+        this.imageForm.controls.blueScale.valueChanges
+        .debounceTime(300)
+        .subscribe((blueScale) => {
+            this.blueScaleAdjustment = blueScale;
+            this.effectAdjustment = blueScale;
+            this.loadImages();
+        });
+
+        this.imageForm.controls.greenScale.valueChanges
+        .debounceTime(300)
+        .subscribe((greenScale) => {
+            this.greenScaleAdjustment = greenScale;
+            this.effectAdjustment = greenScale;
+            this.loadImages();
+        });
+
+        this.imageForm.controls.redScale.valueChanges
+        .debounceTime(300)
+        .subscribe((redScale) => {
+            this.redScaleAdjustment = redScale;
+            this.effectAdjustment = redScale;
+            this.loadImages();
+        });
     }
 
     private dataURItoBlob(dataURI) {
@@ -81,11 +131,8 @@ export class AngularImagePickerImageComponent {
         .then(this.loadImageBefore)
         .then(this.defineNewSize)
         .then(this.createManipulationCanvas)
-        .then(this.getManipulationCanvasContext)
-        .then(this.drawNewImage)
-        .then(this.applyEfect)
+        .then(this.applyEffect)
         .then(this.makeNewImageFile);
-
     }
 
     private readFile = (): Promise<any> => {
@@ -99,9 +146,9 @@ export class AngularImagePickerImageComponent {
     }
 
     private loadImageBefore = (): Promise<ImageMetadata> => {
-        this.imageElementBefore = document.createElement("img");
-        this.imageElementBefore.src = this.imageBeforeBase64;
         return new Promise<any>((res, rej) => {
+            this.imageElementBefore = document.createElement("img");
+            this.imageElementBefore.src = this.imageBeforeBase64;
             this.imageElementBefore.onload = () => {
                 res()
             }
@@ -142,30 +189,20 @@ export class AngularImagePickerImageComponent {
             // Set the canvas to the new calculated dimensions
             this.manipulationCanvas.width = this.imageAfterMetadata.width;
             this.manipulationCanvas.height = this.imageAfterMetadata.height;
-            res();
-        });
-    }
-
-    private getManipulationCanvasContext = (): Promise<any> => {
-        return new Promise<any>((res, rej) => {
+            // Get Manipulation Canvas Context
             this.manipulationCanvasContext = this.manipulationCanvas.getContext("2d");
-            res();
-        });
-    }
-
-    private drawNewImage = (): Promise<any> => {
-        return new Promise<any>((res, rej) => {
+            // Draw the image
             this.manipulationCanvasContext.drawImage(this.imageElementBefore, 0, 0, this.imageAfterMetadata.width, this.imageAfterMetadata.height);
             res();
         });
     }
 
-    private applyEfect = (): Promise<any> => {
+    private applyEffect = (): Promise<any> => {
         return new Promise<any>((res, rej) => {
-            if(this.efect){
+            if(this.effect){
                 let imageData = this.manipulationCanvasContext.getImageData(0, 0, this.manipulationCanvas.width, this.manipulationCanvas.height);
                 // APPLY EFECT HERE
-                SvgEfects[this.efect](imageData, this.manipulationCanvas.width, this.manipulationCanvas.height);
+                this.effect(imageData, this.effectAdjustment, this.blueScaleAdjustment, this.greenScaleAdjustment, this.redScaleAdjustment);
                 this.manipulationCanvasContext.putImageData(imageData, 0, 0, 0, 0, this.manipulationCanvas.width, this.manipulationCanvas.height);
             } else {
                 this.manipulationCanvasContext.drawImage(this.imageElementBefore, 0, 0, this.imageAfterMetadata.width, this.imageAfterMetadata.height);
@@ -183,23 +220,89 @@ export class AngularImagePickerImageComponent {
         });
     }
 
-    setEfect = (efect) => {
-        this.efect = efect;
+    setEffect = (effect) => {
+        this.effect = effect;
+        this.loadImages();
+    }
+
+    setEffectAdjustment = (effectAdjustment) => {
+        this.effectAdjustment = effectAdjustment;
         this.loadImages();
     }
 }
 
-export const SvgEfects = {
-    grayScale: (imageData, width, heigth) => {
-        var d = imageData.data;
-        for (var i=0; i<d.length; i+=4) {
-          var r = d[i];
-          var g = d[i+1];
-          var b = d[i+2];
-          // CIE luminance for the RGB
-          // The human eye is bad at seeing red and blue, so we de-emphasize them.
-          var v = 0.2126*r + 0.7152*g + 0.0722*b;
-          d[i] = d[i+1] = d[i+2] = v
-        }
+
+/*
+* Built in canvas filters
+*/
+export const Filters: Array<any> = [];
+
+Filters.push({name: 'Graycsale', effect: (imageData) => {
+    let d = imageData.data;
+    for (let i=0; i<d.length; i+=4) {
+      let r = d[i];
+      let g = d[i+1];
+      let b = d[i+2];
+      let v = 0.2126*r + 0.7152*g + 0.0722*b;
+      d[i] = d[i+1] = d[i+2] = v
     }
-}
+}});
+
+Filters.push({name: 'Light-Graycsale', effect: (imageData) => {
+    let d = imageData.data;
+    for (let i=0; i<d.length; i+=4) {
+      let r = d[i];
+      let g = d[i+1];
+      let b = d[i+2];
+      let v = 0.2126*r + 0.7152*g + 0.0722*b;
+      d[i] = d[i+1] = d[i+2] = v;
+      d[i] += d[i];
+      d[i+1] += d[i+1];
+      d[i+2] += d[i+2];
+    }
+}});
+
+Filters.push({name: 'Redscale', effect: (imageData, adjustment, blueScaleAdjustment, greenScaleAdjustment, redScaleAdjustment) => {
+  let d = imageData.data;
+  for (let i=0; i<d.length; i+=4) {
+    d[i] = redScaleAdjustment;
+    d[i+1] += blueScaleAdjustment;
+    d[i+2] += redScaleAdjustment;
+  }
+}});
+
+Filters.push({name: 'Greenscale', effect: (imageData, adjustment) => {
+  let d = imageData.data;
+  for (let i=0; i<d.length; i+=4) {
+    let r = d[i];
+    let g = d[i+1];
+    let b = d[i+2];
+    d[i] = d[i];
+    d[i+1] += adjustment;
+    d[i+2] += d[i+2];
+  }
+}});
+
+Filters.push({name: 'Bluescale', effect: (imageData, adjustment) => {
+  let d = imageData.data;
+  for (let i=0; i<d.length; i+=4) {
+    let r = d[i];
+    let g = d[i+1];
+    let b = d[i+2];
+    d[i] = d[i];
+    d[i+1] += d[i+1];
+    d[i+2] += adjustment;
+  }
+}});
+
+Filters.push({name: 'Brightness', effect: (imageData, adjustment) => {
+  let d = imageData.data;
+  for (let i=0; i<d.length; i+=4) {
+    let r = d[i];
+    let g = d[i+1];
+    let b = d[i+2];
+    d[i] += adjustment;
+    d[i+1] += adjustment;
+    d[i+2] += adjustment;
+  }
+}});

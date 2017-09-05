@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MdButtonModule, MdIconModule, MdProgressBarModule } from '@angular/material';
 import { AngularImagePickerComponent } from './angular-image-picker.component';
@@ -9,6 +9,7 @@ import { AngularImagePickerImageComponent } from './angular-image-picker-image/a
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MdButtonModule,
     MdIconModule,
     MdProgressBarModule,
