@@ -1,5 +1,6 @@
 <div *ngIf="files">
 	<div *ngFor="let file of files; let i = index;" class="angular-image-picker-image">
+		<p>File size: {{getTotalFilesSize(true)}}</p>
 		<angular-image-picker-image
 			[file]="file"
 		></angular-image-picker-image>
