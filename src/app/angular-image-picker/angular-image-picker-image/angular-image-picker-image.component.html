@@ -14,20 +14,25 @@
         <button type="button" md-raised-button color="default" (click)="setEffect()">
             Reset
         </button>
-        <button *ngFor="let effect of effects" type="button" md-raised-button color="accent" (click)="setEffect(effect.effect)">
-            {{effect.name}}
+        <button *ngFor="let effect of effects" type="button" md-raised-button color="accent" (click)="setEffect(effect)">
+            {{effect}}
         </button>
     </div>
-    
+
     <form role="form" [formGroup]="imageForm">
-        <div>
-            <input type="number" min="0" max="255" name="" value="0" formControlName="redScale" placeholder="Redscalse">
+        <div *ngIf="effectName == 'Manual'">
+            <div>
+                <md-slider name="redScale" formControlName="redScale" placeholder="Redscalse" min="-255" max="255" step="5" thumb-label="true"></md-slider>
+            </div>
+            <div>
+                <md-slider name="greenScale" formControlName="greenScale" placeholder="Greenscalse" min="-255" max="255" step="5" thumb-label="true"></md-slider>
+            </div>
+            <div>
+                <md-slider name="blueScale" formControlName="blueScale" placeholder="Bluescalse" min="-255" max="255" step="5" thumb-label="true"></md-slider>
+            </div>
         </div>
-        <div>
-            <input type="number" min="0" max="255" name="" value="0" formControlName="greenScale" placeholder="Greenscalse">
-        </div>
-        <div>
-            <input type="number" min="0" max="255" name="" value="0" formControlName="blueScale" placeholder="Bluescalse">
+        <div *ngIf="effectName != 'Manual' && effectName != 'Grey' && effectName != 'Light-Grey'">
+            <md-slider name="effectAdjustment" formControlName="effectAdjustment" placeholder="Effect Adjustment" min="-255" max="255" step="5" thumb-label="true"></md-slider>
         </div>
     </form>
 
