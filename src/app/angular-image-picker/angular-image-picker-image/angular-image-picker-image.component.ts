@@ -31,7 +31,7 @@ export class AngularImagePickerImageComponent implements OnInit {
     blueScaleAdjustment = 1;
     greenScaleAdjustment = 1;
     redScaleAdjustment = 1;
-    imageForm: FormGroup;
+    imageForm: FormGroup = new FormGroup({});
 
     /*
     * Interfaces
@@ -61,7 +61,6 @@ export class AngularImagePickerImageComponent implements OnInit {
     set _file(fileBefore: File) {
       this.fileBefore = fileBefore;
       this.loadImages();
-
     }
 
     constructor(

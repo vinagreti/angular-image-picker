@@ -11,7 +11,7 @@
     <h3>Choose an effect</h3>
 
     <div >
-        <button type="button" md-raised-button color="default" (click)="setEffect()">
+        <button type="button" md-raised-button color="default" (click)="setEffect(undefined)">
             Reset
         </button>
         <button *ngFor="let effect of effects" type="button" md-raised-button color="accent" (click)="setEffect(effect)">
@@ -19,19 +19,23 @@
         </button>
     </div>
 
-    <form role="form" [formGroup]="imageForm">
-        <div *ngIf="effectName == 'Manual'">
+    <form role="form" [formGroup]="imageForm" *ngIf="effectName">
+        <div *ngIf="effectName == 'Manual'" style="display: flex; flex-wrap: wrap-reverse;">
             <div>
+                <p class="adjustment-label">Redscalse</p>
                 <md-slider name="redScale" formControlName="redScale" placeholder="Redscalse" min="-255" max="255" step="5" thumb-label="true"></md-slider>
             </div>
             <div>
+                <p class="adjustment-label">Greenscalse</p>
                 <md-slider name="greenScale" formControlName="greenScale" placeholder="Greenscalse" min="-255" max="255" step="5" thumb-label="true"></md-slider>
             </div>
             <div>
+                <p class="adjustment-label">Bluescalse</p>
                 <md-slider name="blueScale" formControlName="blueScale" placeholder="Bluescalse" min="-255" max="255" step="5" thumb-label="true"></md-slider>
             </div>
         </div>
         <div *ngIf="effectName != 'Manual' && effectName != 'Grey' && effectName != 'Light-Grey'">
+            <p class="adjustment-label">Effect Adjustment</p>
             <md-slider name="effectAdjustment" formControlName="effectAdjustment" placeholder="Effect Adjustment" min="-255" max="255" step="5" thumb-label="true"></md-slider>
         </div>
     </form>
