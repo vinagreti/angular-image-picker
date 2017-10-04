@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReducedMemoryRepresentation } from './../helpers';
+import { Filters } from './../filters';
 /*
 * Dimensions
 *
@@ -86,7 +87,7 @@ export class AngularImagePickerImageComponent implements OnInit {
         });
 
         this.imageForm.controls.blueScale.valueChanges
-        .debounceTime(300)
+        .debounceTime(200)
         .subscribe((blueScale) => {
             this.blueScaleAdjustment = blueScale;
             if (this.effectName) {
@@ -95,7 +96,7 @@ export class AngularImagePickerImageComponent implements OnInit {
         });
 
         this.imageForm.controls.greenScale.valueChanges
-        .debounceTime(300)
+        .debounceTime(200)
         .subscribe((greenScale) => {
             this.greenScaleAdjustment = greenScale;
             if (this.effectName) {
@@ -104,7 +105,7 @@ export class AngularImagePickerImageComponent implements OnInit {
         });
 
         this.imageForm.controls.redScale.valueChanges
-        .debounceTime(300)
+        .debounceTime(200)
         .subscribe((redScale) => {
             this.redScaleAdjustment = redScale;
             if (this.effectName) {
@@ -113,7 +114,7 @@ export class AngularImagePickerImageComponent implements OnInit {
         });
 
         this.imageForm.controls.effectAdjustment.valueChanges
-        .debounceTime(300)
+        .debounceTime(200)
         .subscribe((effectAdjustment) => {
             this.effectAdjustment = effectAdjustment;
             if (this.effectName) {
@@ -219,7 +220,6 @@ export class AngularImagePickerImageComponent implements OnInit {
         return new Promise<any>((res, rej) => {
             if (this.effectName) {
                 const imageData = this.workingCanvasContext.getImageData(0, 0, this.workingCanvas.width, this.workingCanvas.height);
-                // APPLY EFECT HERE
                 const runEffect = Filters.effects[this.effectName];
                 runEffect(imageData, this.effectAdjustment, this.blueScaleAdjustment, this.greenScaleAdjustment, this.redScaleAdjustment);
                 this.workingCanvasContext.putImageData(imageData, 0, 0, 0, 0, this.workingCanvas.width, this.workingCanvas.height);
@@ -265,101 +265,3 @@ export class AngularImagePickerImageComponent implements OnInit {
         this.loadImages();
     }
 }
-
-
-/*
-* Built in canvas filters
-*/
-export const Filters = {
-    effects: {},
-    ensureRGBRange: (v): number => {
-        if (isNaN(v)) {
-            console.log('V is undefined', v)
-        }
-        if (v < 0) {
-            return 0;
-        } else if (v > 255) {
-            return 255;
-        }
-        return v;
-    }
-};
-
-Filters.effects['Gray'] = (imageData) => {
-    const d = imageData.data;
-    for (let i = 0; i < d.length; i += 4) {
-      const r = d[i];
-      const g = d[i + 1];
-      const b = d[i + 2];
-      const v = 0.2126 * r  +  0.7152 * g  +  0.0722 * b;
-      d[i] = d[i + 1] = d[i + 2] = v
-    }
-};
-
-Filters.effects['Light-Gray'] = (imageData) => {
-    const d = imageData.data;
-    for (let i = 0; i < d.length; i += 4) {
-      const r = d[i];
-      const g = d[i + 1];
-      const b = d[i + 2];
-      const v = 0.2126 * r  +  0.7152 * g  +  0.0722 * b;
-      d[i] = d[i + 1] = d[i + 2] = v;
-      d[i] += d[i];
-      d[i + 1] += d[i + 1];
-      d[i + 2] += d[i + 2];
-    }
-};
-
-Filters.effects['Redscale'] = (imageData, adjustment) => {
-  const d = imageData.data;
-  for (let i = 0; i < d.length; i += 4) {
-    const r = d[i];
-    d[i] = Filters.ensureRGBRange( + adjustment);
-    d[i + 1] += d[i + 1];
-    d[i + 2] += d[i + 2]
-  }
-};
-
-Filters.effects['Greenscale'] = (imageData, adjustment) => {
-  const d = imageData.data;
-  for (let i = 0; i < d.length; i += 4) {
-    const g = d[i + 1];
-    d[i] = d[i];
-    d[i + 1] += Filters.ensureRGBRange(g + adjustment);
-    d[i + 2] += d[i + 2];
-  }
-};
-
-Filters.effects['Bluescale'] = (imageData, adjustment) => {
-  const d = imageData.data;
-  for (let i = 0; i < d.length; i += 4) {
-    const b = d[i + 2];
-    d[i] = d[i];
-    d[i + 1] += d[i + 1];
-    d[i + 2] += Filters.ensureRGBRange(b + adjustment);
-  }
-};
-
-Filters.effects['Brightness'] = (imageData, adjustment) => {
-  const d = imageData.data;
-  for (let i = 0; i < d.length; i += 4) {
-    const r = d[i];
-    const g = d[i + 1];
-    const b = d[i + 2];
-    d[i] += Filters.ensureRGBRange(r + adjustment);
-    d[i + 1] += Filters.ensureRGBRange(g + adjustment);
-    d[i + 2] += Filters.ensureRGBRange(b + adjustment);
-  }
-};
-
-Filters.effects['Manual'] = (imageData, adjustment, blueScaleAdjustment = 0, greenScaleAdjustment = 0, redScaleAdjustment = 0) => {
-  const d = imageData.data;
-  for (let i = 0; i < d.length; i += 4) {
-    const r = d[i];
-    const g = d[i + 1];
-    const b = d[i + 2];
-    d[i] += Filters.ensureRGBRange(r + redScaleAdjustment);
-    d[i + 1] += Filters.ensureRGBRange(r + greenScaleAdjustment);
-    d[i + 2] += Filters.ensureRGBRange(r + blueScaleAdjustment);
-  }
-};
