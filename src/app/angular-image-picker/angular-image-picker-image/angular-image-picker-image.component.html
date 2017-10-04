@@ -7,20 +7,22 @@
     </div>
 </div>
 
+{{ReducedMemoryRepresentation(sizeBefore)}} -> {{ReducedMemoryRepresentation(sizeAfter)}} = {{(((sizeAfter / sizeBefore) * 100) - 100).toFixed(2)}}%
+
 <div>
     <h3>Choose an effect</h3>
 
-    <div >
-        <button type="button" md-raised-button color="default" (click)="setEffect(undefined)">
-            Reset
-        </button>
-        <button *ngFor="let effect of effects" type="button" md-raised-button color="accent" (click)="setEffect(effect)">
+    <div style="display: flex; justify-content: space-around; flex-flow: row wrap; align-items: stretch;">
+        <button style="margin: 8px 2px;" *ngFor="let effect of effects" type="button" md-raised-button color="accent" (click)="setEffect(effect)">
             {{effect}}
+        </button>
+        <button style="margin: 8px 2px;" type="button" md-raised-button color="default" (click)="setEffect(undefined)">
+            Reset
         </button>
     </div>
 
     <form role="form" [formGroup]="imageForm" *ngIf="effectName">
-        <div *ngIf="effectName == 'Manual'" style="display: flex; flex-wrap: wrap-reverse;">
+        <div *ngIf="effectName == 'Manual'">
             <div>
                 <p class="adjustment-label">Redscalse</p>
                 <md-slider name="redScale" formControlName="redScale" placeholder="Redscalse" min="-255" max="255" step="5" thumb-label="true"></md-slider>

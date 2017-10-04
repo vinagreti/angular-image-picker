@@ -1,7 +1,8 @@
 <div *ngIf="files">
 	<div *ngFor="let file of files; let i = index;" class="tzd-image-picker-image">
-		<p>File size: {{getTotalFilesSize(true)}}</p>
 		<tzd-image-picker-image
+			maxWidth="1080"
+			maxHeight="1080"
 			[file]="file"
 		></tzd-image-picker-image>
 	</div>

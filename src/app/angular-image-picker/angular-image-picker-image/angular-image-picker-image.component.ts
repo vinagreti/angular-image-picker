@@ -1,11 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-/*
-* Default maximum image size (in px) to optimise and reduce the image size in memory
-*/
-const MAX_WIDTH = 1080;
-const MAX_HEIGHT = 1080;
-
+import { ReducedMemoryRepresentation } from './../helpers';
 /*
 * Dimensions
 *
@@ -32,6 +27,7 @@ export class AngularImagePickerImageComponent implements OnInit {
     greenScaleAdjustment = 1;
     redScaleAdjustment = 1;
     imageForm: FormGroup = new FormGroup({});
+    ReducedMemoryRepresentation = ReducedMemoryRepresentation;
 
     /*
     * Interfaces
@@ -40,15 +36,14 @@ export class AngularImagePickerImageComponent implements OnInit {
     @Output() imageBeforeBase64: string; // image before effect
     @Output() fileBefore: File; // file from an <input type="file">
     @Output() fileAfter: File; // file from manipulation
+    @Output() sizeAfter: number; // image size after effect
+    @Output() sizeBefore: number; // image size before effect
 
     /*
-    * control letiables
+    * Default maximum image size (in px) to optimise and reduce the image size in memory
     */
-    private imgElBefore: HTMLImageElement;
-    private imgElAfter: ImageMetadata;
-    private workingCanvas: HTMLCanvasElement;
-    private workingCanvasContext: CanvasRenderingContext2D;
-    private reader: FileReader; // global file reader
+    @Input() maxWidth = 1080;
+    @Input() maxHeight = 1080;
 
     /*
     * @Input() File getter and setter
@@ -62,6 +57,15 @@ export class AngularImagePickerImageComponent implements OnInit {
       this.fileBefore = fileBefore;
       this.loadImages();
     }
+
+    /*
+    * control variables
+    */
+    private imgElBefore: HTMLImageElement;
+    private imgElAfter: ImageMetadata;
+    private workingCanvas: HTMLCanvasElement;
+    private workingCanvasContext: CanvasRenderingContext2D;
+    private reader: FileReader; // global file reader
 
     constructor(
         private formBuilder: FormBuilder
@@ -152,6 +156,7 @@ export class AngularImagePickerImageComponent implements OnInit {
         return new Promise<any>((res, rej) => {
             this.reader.onload = () => {
                 this.imageBeforeBase64 = this.reader.result;
+                this.sizeBefore = this.imageBeforeBase64.length;
                 res();
             }
             this.reader.readAsDataURL(this.fileBefore);
@@ -176,14 +181,14 @@ export class AngularImagePickerImageComponent implements OnInit {
 
             // Set the WxH to fit the Max values (but maintain proportions)
             if (width > height) {
-                if (width > MAX_WIDTH) {
-                    height *= MAX_WIDTH / width;
-                    width = MAX_WIDTH;
+                if (width > this.maxWidth) {
+                    height *= this.maxWidth / width;
+                    width = this.maxWidth;
                 }
             } else {
-                if (height > MAX_HEIGHT) {
-                    width *= MAX_HEIGHT / height;
-                    height = MAX_HEIGHT;
+                if (height > this.maxHeight) {
+                    width *= this.maxHeight / height;
+                    height = this.maxHeight;
                 }
             }
             this.imgElAfter = {
@@ -219,7 +224,7 @@ export class AngularImagePickerImageComponent implements OnInit {
                 runEffect(imageData, this.effectAdjustment, this.blueScaleAdjustment, this.greenScaleAdjustment, this.redScaleAdjustment);
                 this.workingCanvasContext.putImageData(imageData, 0, 0, 0, 0, this.workingCanvas.width, this.workingCanvas.height);
             } else {
-                this.workingCanvasContext.drawImage(this.imgElBefore, 0, 0, this.imgElAfter.width, this.imgElAfter.height);
+                this.resetImage();
             }
             res();
         });
@@ -228,11 +233,19 @@ export class AngularImagePickerImageComponent implements OnInit {
     private makeNewImageFile = (): Promise<any> => {
         return new Promise<any>((res, rej) => {
             this.imageAfterBase64 = this.workingCanvas.toDataURL('image/jpeg');
+            this.sizeAfter = this.imageAfterBase64.length;
             const blob: Blob = this.dataURItoBlob(this.imageAfterBase64);
             this.fileAfter = new File([blob], `${this.fileBefore.name}-${Date.now()}`);
             res();
         });
     }
+
+    private resetImage = () => {
+        return new Promise<any>((res, rej) => {
+            this.workingCanvasContext.drawImage(this.imgElBefore, 0, 0, this.imgElAfter.width, this.imgElAfter.height);
+            res();
+        });
+    };
 
     setEffect = (effectName) => {
         if (!effectName) {

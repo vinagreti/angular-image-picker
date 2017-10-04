@@ -37,7 +37,7 @@ import 'hammerjs';
     ConfirmationDialogModule,
     GuardModule,
     JsonStorageModule,
-	HttpModule,
+    HttpModule,
     MdButtonModule,
     MdIconModule,
     MdSidenavModule,
