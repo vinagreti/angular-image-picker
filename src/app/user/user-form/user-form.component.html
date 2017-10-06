@@ -2,8 +2,6 @@
 
     <tzd-angular-image-picker name="avatar" formControlName="avatar" [multiple]="false" type="blob"></tzd-angular-image-picker>
 
-    <img [src]="userForm.controls.avatar.value">
-
     <md-input-container>
         <input mdInput type="text" name="name" formControlName="name" placeholder="name" autofocus="true" tabindex="1"/>
         <md-hint *ngIf="userForm.controls.name.touched && userForm.controls.name.errors?.required">
