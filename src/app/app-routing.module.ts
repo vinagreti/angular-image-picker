@@ -6,13 +6,15 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './static-pages/page-not-found.component';
 
 export const appRoutes: Routes = [
-  	{ path: '',  component: HomeComponent},
+  { path: '',  component: HomeComponent},
 
-	{ path: 'user', loadChildren: './user/user.module#UserModule' },
+  { path: 'user', loadChildren: './user/user.module#UserModule' },
 
-    { path: 'image', loadChildren: './image/image.module#ImageModule' },
+  { path: 'image', loadChildren: './image/image.module#ImageModule' },
 
-	{ path: '**', component: PageNotFoundComponent }
+  { path: 'attachments', loadChildren: './attachments/attachments.module#AttachmentsModule' },
+
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

@@ -17,6 +17,8 @@ import { CustomPipesModule } from './../shared/pipes';
 import { JsonStorageModule } from './../json-storage/json-storage.module';
 import { UserRoutingModule } from './user-routing.module';
 import { ValidatorModule } from './../shared/services/validator';
+import { AngularImagePickerModule } from './../angular-image-picker/angular-image-picker.module';
+
 
 // Services
 import { UserService } from './user.service';
@@ -31,6 +33,7 @@ import { UserService } from './user.service';
         UserLoginComponent,
     ],
     imports: [
+        AngularImagePickerModule,
         CommonModule,
         ConfirmationDialogModule,
         CustomPipesModule,

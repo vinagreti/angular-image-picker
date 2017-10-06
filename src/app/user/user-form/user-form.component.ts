@@ -7,7 +7,7 @@ import { User } from './../user.model';
 import { ValidatorService } from './../../shared/services/validator';
 
 @Component({
-    selector: 'user-form',
+    selector: 'tzd-user-form',
     templateUrl: './user-form.component.html',
     styleUrls: ['./user-form.component.scss']
 })
@@ -33,12 +33,13 @@ export class UserFormComponent implements OnInit {
         this.startUserForm();
     }
 
-    private startUser(){
+    private startUser() {
         this.user = this.user ? this.user : new User();
     }
 
-    private startUserForm(){
+    private startUserForm() {
         this.userForm = this.formBuilder.group({
+            avatar: [this.user.avatar, []],
             name: [this.user.name, [Validators.required]],
             showPassword: [false],
             username: [this.user.username, Validators.compose([
@@ -52,17 +53,18 @@ export class UserFormComponent implements OnInit {
     }
 
     save = () => {
-        if(this.userForm.valid){
-            let user = new User(this.user);
+        if (this.userForm.valid) {
+            const user = new User(this.user);
 
             user.name = this.userForm.controls.name.value;
+            user.avatar = this.userForm.controls.avatar.value;
             user.username = this.userForm.controls.username.value;
             user.password = this.userForm.controls.password.value;
             user.isAdmin = this.userForm.controls.isAdmin.value;
 
-            let userWithSameUsername = this.userService.getByUsername(user.username);
+            const userWithSameUsername = this.userService.getByUsername(user.username);
 
-            if(userWithSameUsername && userWithSameUsername.id != user.id){
+            if (userWithSameUsername && userWithSameUsername.id !== user.id) {
                 return this.userForm.controls.username.setErrors({notUnique: true});
             }
 

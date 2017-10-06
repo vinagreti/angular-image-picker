@@ -1,7 +1,8 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ReducedMemoryRepresentation } from './../helpers';
+import { ReducedMemoryRepresentation, ImageHandler } from './../helpers';
 import { Filters } from './../filters';
+import { Observable } from 'rxjs/Observable';
 /*
 * Dimensions
 *
@@ -29,6 +30,11 @@ export class AngularImagePickerImageComponent implements OnInit {
     redScaleAdjustment = 1;
     imageForm: FormGroup = new FormGroup({});
     ReducedMemoryRepresentation = ReducedMemoryRepresentation;
+
+    /*
+    * Events
+    */
+    @Output() value = new EventEmitter();
 
     /*
     * Interfaces
@@ -68,7 +74,7 @@ export class AngularImagePickerImageComponent implements OnInit {
     private workingCanvasContext: CanvasRenderingContext2D;
     private reader: FileReader; // global file reader
 
-    constructor(
+    constructor (
         private formBuilder: FormBuilder
     ) {
         this.reader = new FileReader();
@@ -121,27 +127,6 @@ export class AngularImagePickerImageComponent implements OnInit {
                 this.loadImages();
             }
         });
-    }
-
-    private dataURItoBlob(dataURI) {
-        // convert base64/URLEncoded data component to raw binary data held in a string
-        let byteString;
-        if (dataURI.split(',')[0].indexOf('base64') >= 0) {
-            byteString = atob(dataURI.split(',')[1]);
-        } else {
-            byteString = decodeURI(dataURI.split(',')[1]);
-        }
-
-        // separate out the mime component
-        const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-        // write the bytes of the string to a typed array
-        const ia = new Uint8Array(byteString.length);
-        for (let i = 0; i < byteString.length; i++) {
-            ia[i] = byteString.charCodeAt(i);
-        }
-
-        return new Blob([ia], {type: mimeString});
     }
 
     private loadImages() {
@@ -234,8 +219,10 @@ export class AngularImagePickerImageComponent implements OnInit {
         return new Promise<any>((res, rej) => {
             this.imageAfterBase64 = this.workingCanvas.toDataURL('image/jpeg');
             this.sizeAfter = this.imageAfterBase64.length;
-            const blob: Blob = this.dataURItoBlob(this.imageAfterBase64);
-            this.fileAfter = new File([blob], `${this.fileBefore.name}-${Date.now()}`);
+            const blob: Blob = ImageHandler.dataURItoBlob(this.imageAfterBase64);
+            this.fileAfter = ImageHandler.dataURItoFile(this.imageAfterBase64);
+            this.value.emit('ss');
+            console.log('emi')
             res();
         });
     }

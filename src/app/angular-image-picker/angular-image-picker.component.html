@@ -1,20 +1,23 @@
-<div *ngIf="files">
-	<div *ngFor="let file of files; let i = index;" class="tzd-image-picker-image">
-		<tzd-image-picker-image
-			maxWidth="1080"
-			maxHeight="1080"
-			[file]="file"
-		></tzd-image-picker-image>
+<div class="image-picker-wrapper">
+	<div *ngIf="files">
+		<div *ngFor="let file of files; let i = index;" class="tzd-image-picker-image">
+			<tzd-image-picker-image
+				maxWidth="1080"
+				maxHeight="1080"
+				[file]="file"
+			></tzd-image-picker-image>
+		</div>
 	</div>
-</div>
 
-<form role="form" enctype="multipart/form-data">
-	<input id="files" name="files" type="file" multiple="true" #fileUpload hidden="true" (change)="updateFilesToLoad()">
-</form>
+	<form role="form" enctype="multipart/form-data">
+		<input id="files" name="files" type="file" [multiple]="multiple" #fileUpload hidden="true" (change)="updateFilesToLoad()">
+	</form>
 
-<div *ngIf="!files" class="text-center click" (click)="fileUpload.click(); $event.stopPropagation();">
-	<button type="button" md-mini-fab color="accent">
-		<md-icon>add</md-icon>
-	</button>
-	<p>Selecione uma ou mais imagens</p>
+	<div *ngIf="!files" class="text-center click" (click)="fileUpload.click(); $event.stopPropagation();">
+		<button type="button" md-mini-fab color="accent">
+			<md-icon>add</md-icon>
+		</button>
+		<p>Selecione uma ou mais imagens</p>
+	</div>
+
 </div>
