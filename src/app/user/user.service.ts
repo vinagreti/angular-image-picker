@@ -191,6 +191,7 @@ export class UserService {
         if(this.isAdmin()){ // Only ADMIN can update
             let _user = this.get(user.id);
             _user.name = user.name;
+            _user.avatar = user.avatar;
             _user.isAdmin = user.isAdmin;
             this.users.next(this._users);
             return _user;
