@@ -7,7 +7,9 @@
     </div>
 </div>
 
-{{ReducedMemoryRepresentation(sizeBefore)}} -> {{ReducedMemoryRepresentation(sizeAfter)}} = {{(((sizeAfter / sizeBefore) * 100) - 100).toFixed(2)}}%
+<div *ngIf="debug">
+    {{ReducedMemoryRepresentation(sizeBefore)}} -> {{ReducedMemoryRepresentation(sizeAfter)}} = {{(((sizeAfter / sizeBefore) * 100) - 100).toFixed(2)}}%
+</div>
 
 <div>
     <h3>Choose an effect</h3>
@@ -37,8 +39,8 @@
             </div>
         </div>
         <div *ngIf="effectName != 'Manual' && effectName != 'Grey' && effectName != 'Light-Grey'">
-            <p class="adjustment-label">Effect Adjustment</p>
-            <md-slider name="effectAdjustment" formControlName="effectAdjustment" placeholder="Effect Adjustment" min="-255" max="255" step="5" thumb-label="true"></md-slider>
+            <p class="adjustment-label">Effect Scale</p>
+            <md-slider name="brightnessScale" formControlName="brightnessScale" placeholder="Effect Scale" min="-255" max="255" step="5" thumb-label="true"></md-slider>
         </div>
     </form>
 

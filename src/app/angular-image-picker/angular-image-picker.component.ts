@@ -20,6 +20,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class AngularImagePickerComponent implements OnInit {
 
+  private manipulationLayerObserver;
+
   @Input() debug: boolean;
   @Input() multiple = false;
   @Input() type: 'raw' | 'blob' = 'raw';
@@ -96,13 +98,7 @@ export class AngularImagePickerComponent implements OnInit {
   // this methos is called by the html when the input file changes
   updateFilesToLoad(): void {
     this.files = (<HTMLInputElement>document.getElementById('files')).files;
-
-    this.manipulatedImages.changes.subscribe(() => {
-      this.manipulatedImages.toArray().forEach((image: AngularImagePickerImageComponent) => {
-        image.value.subscribe(this.refreshValue);
-      });
-    });
-
+    this.refreshManipulationLayerObserver();
   }
 
   private refreshValue = () => {
@@ -133,6 +129,23 @@ export class AngularImagePickerComponent implements OnInit {
       } else {
         this.files = [value];
       }
+      this.refreshManipulationLayerObserver();
+    }
+  }
+
+
+  private refreshManipulationLayerObserver() {
+    if (this.manipulatedImages) {
+      if (this.manipulationLayerObserver) {
+        this.manipulationLayerObserver.unsubscribe();
+      }
+      this.manipulationLayerObserver = this.manipulatedImages.changes.subscribe(() => {
+        console.log('asdfas')
+        this.manipulatedImages.toArray().forEach((image: AngularImagePickerImageComponent) => {
+
+          image.value.subscribe(this.refreshValue);
+        });
+      });
     }
   }
 
