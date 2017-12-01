@@ -51,6 +51,7 @@ export class AngularImagePickerImageComponent implements OnInit {
     */
     @Input() maxWidth = 1080;
     @Input() maxHeight = 1080;
+    @Input() debug;
 
     /*
     * @Input() File getter and setter

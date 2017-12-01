@@ -1,6 +1,6 @@
 <form class="user-form" role="form" (submit)="save()" [formGroup]="userForm" >
 
-    <tzd-angular-image-picker name="avatar" formControlName="avatar" [multiple]="false" type="blob"></tzd-angular-image-picker>
+    <tzd-angular-image-picker name="avatar" formControlName="avatar" [multiple]="false" type="blob" [debug]="true"></tzd-angular-image-picker>
 
     <md-input-container>
         <input mdInput type="text" name="name" formControlName="name" placeholder="name" autofocus="true" tabindex="1"/>

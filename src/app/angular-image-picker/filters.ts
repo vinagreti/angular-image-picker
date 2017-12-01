@@ -83,7 +83,7 @@ Filters.effects['Brightness'] = (imageData, adjustment) => {
   }
 };
 
-Filters.effects['Manual'] = (imageData, adjustment, blueScaleAdjustment = 0, greenScaleAdjustment = 0, redScaleAdjustment = 0) => {
+Filters.effects['Manual'] = (imageData, adjustment, blueScaleAdjustment = -255, greenScaleAdjustment = -255, redScaleAdjustment = -255) => {
   const d = imageData.data;
   for (let i = 0; i < d.length; i += 4) {
     const r = d[i];
