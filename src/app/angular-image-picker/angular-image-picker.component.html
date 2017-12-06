@@ -1,5 +1,9 @@
 <div class="image-picker-wrapper">
 	<div *ngIf="files">
+		<button type="button" md-mini-fab color="default" (click)="onClose()">
+			<md-icon>close</md-icon>
+		</button>
+		{{files | json}}
 		<div *ngFor="let file of files; let i = index;" class="tzd-image-picker-image">
 			<tzd-image-picker-image
 				maxWidth="1080"
@@ -17,6 +21,9 @@
 	<div *ngIf="!files" class="text-center click" (click)="fileUpload.click(); $event.stopPropagation();">
 		<button type="button" md-mini-fab color="accent">
 			<md-icon>add</md-icon>
+		</button>
+		<button type="button" md-mini-fab color="default" (click)="onClose()">
+			<md-icon>close</md-icon>
 		</button>
 		<p>Selecione uma ou mais imagens</p>
 	</div>

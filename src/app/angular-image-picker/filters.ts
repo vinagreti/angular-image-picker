@@ -16,7 +16,7 @@ export const Filters = {
     }
 };
 
-Filters.effects['Gray'] = (imageData) => {
+Filters.effects['Grey'] = (imageData) => {
     const d = imageData.data;
     for (let i = 0; i < d.length; i += 4) {
       const r = d[i];
@@ -27,7 +27,7 @@ Filters.effects['Gray'] = (imageData) => {
     }
 };
 
-Filters.effects['Light-Gray'] = (imageData) => {
+Filters.effects['Light-Grey'] = (imageData) => {
     const d = imageData.data;
     for (let i = 0; i < d.length; i += 4) {
       const r = d[i];
