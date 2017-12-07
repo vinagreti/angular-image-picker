@@ -19,6 +19,8 @@ export class UserFormComponent implements OnInit {
 
     userForm: FormGroup;
 
+    changeImageMode: boolean;
+
     constructor(
         private route: ActivatedRoute,
         private formBuilder: FormBuilder,
@@ -39,8 +41,8 @@ export class UserFormComponent implements OnInit {
 
     private startUserForm() {
         this.userForm = this.formBuilder.group({
-            avatarImage: [],
             name: [this.user.name, [Validators.required]],
+            avatar: [this.user.avatar],
             showPassword: [false],
             username: [this.user.username, Validators.compose([
                 this.validatorService.requiredIf(!this.user.id)
@@ -57,7 +59,7 @@ export class UserFormComponent implements OnInit {
             const user = new User(this.user);
 
             user.name = this.userForm.controls.name.value;
-            user.avatar = this.userForm.controls.avatarImage.value;
+            user.avatar = this.userForm.controls.avatar.value;
             user.username = this.userForm.controls.username.value;
             user.password = this.userForm.controls.password.value;
             user.isAdmin = this.userForm.controls.isAdmin.value;

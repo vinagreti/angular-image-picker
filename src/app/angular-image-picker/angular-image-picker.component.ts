@@ -21,6 +21,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 export class AngularImagePickerComponent implements OnInit {
 
   private manipulationLayerObserver;
+  private initialModelImage;
 
   @Input() debug: boolean;
   @Input() multiple = false;
@@ -76,8 +77,7 @@ export class AngularImagePickerComponent implements OnInit {
   // From ControlValueAccessor interface
   writeValue(value: any) {
     if (value !== this.value) {
-      this.value = value;
-      this.setFilesBasedOnNewValue(value);
+      this.initialModelImage = value;
     }
   }
 
@@ -102,19 +102,22 @@ export class AngularImagePickerComponent implements OnInit {
 
   onClose(images?) {
     this.resetComponent();
+    this.changeImageMode = false;
     this.close.emit(images);
   }
 
   // this methos is called by the html when the input file changes
-  updateFilesToLoad(): void {
-    this.files = (<HTMLInputElement>document.getElementById('files')).files;
+  updateFilesToLoad($event): void {
+    this.files = $event.target.files;
     this.refreshManipulationLayerObserver();
   }
 
   private resetComponent() {
-    this.fileUpload.nativeElement.value = "";
+    if (this.fileUpload) {
+      this.fileUpload.nativeElement.value = '';
+    }
     this.files = undefined;
-    this.value = undefined;
+    this.value = this.initialModelImage || undefined;
   }
 
   private refreshValue = () => {
@@ -137,18 +140,6 @@ export class AngularImagePickerComponent implements OnInit {
     }
     this.value = images;
   }
-
-  private setFilesBasedOnNewValue(value: any) {
-    if (value) {
-      if (this.multiple) {
-        this.files = value;
-      } else {
-        this.files = [value];
-      }
-      this.refreshManipulationLayerObserver();
-    }
-  }
-
 
   private refreshManipulationLayerObserver() {
     if (this.manipulatedImages) {
