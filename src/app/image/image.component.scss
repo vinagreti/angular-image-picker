@@ -1,4 +1,8 @@
 .image-component-wrapper{
     max-width: 800px;
-    margin: auto;
+    margin: 16px auto;
+
+    .center {
+      text-align: center;
+    }
 }

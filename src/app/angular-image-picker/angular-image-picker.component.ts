@@ -79,8 +79,9 @@ export class AngularImagePickerComponent implements OnInit {
     if (value !== this.value) {
       if (this.multiple) {
         this.initialModelImages = Array.isArray(value) ? value : [value];
+      } else {
+        this.initialModelImages = value;
       }
-      this.initialModelImages = value;
     }
   }
 

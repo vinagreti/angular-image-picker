@@ -40,7 +40,10 @@
 			<button type="button" md-mini-fab color="default" (click)="onClose()">
 				<md-icon>close</md-icon>
 			</button>
-			<p>Selecione one more images</p>
+			<div [ngSwitch]="multiple ? true : false">
+				<p *ngSwitchCase="true">Select one or more images</p>
+				<p *ngSwitchCase="false">Select one image</p>
+			</div>
 		</div>
 	</ng-template>
 

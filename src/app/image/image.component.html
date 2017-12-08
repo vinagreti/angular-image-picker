@@ -1,5 +1,12 @@
-<!-- IDEA!!! :D Create Player html5 com link blank para outro video, um do speaker e o segundo do powerpoint -->
-
 <div class="image-component-wrapper">
-    <tzd-angular-image-picker></tzd-angular-image-picker>
+    <div class="center">
+      <button md-raised-button color="primary" (click)="multiple = !multiple">
+        <span [ngSwitch]="multiple ? true : false">
+          <span *ngSwitchCase="true">Multiple</span>
+          <span *ngSwitchCase="false">Single</span>
+        </span>
+      </button>
+    </div>
+
+    <tzd-angular-image-picker [multiple]="multiple"></tzd-angular-image-picker>
 </div>
