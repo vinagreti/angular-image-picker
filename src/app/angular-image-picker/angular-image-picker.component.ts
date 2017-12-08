@@ -21,7 +21,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 export class AngularImagePickerComponent implements OnInit {
 
   private manipulationLayerObserver;
-  private initialModelImages;
+
 
   @Input() debug: boolean;
   @Input() multiple = false;
@@ -41,6 +41,9 @@ export class AngularImagePickerComponent implements OnInit {
 
   // use file input or show image
   changeImageMode: boolean;
+
+  // initial image passed to ngModule
+  initialModelImages;
 
   // Used to trigger change event
   @Output() close: EventEmitter<any> = new EventEmitter<any>();
