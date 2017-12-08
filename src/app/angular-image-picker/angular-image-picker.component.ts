@@ -21,7 +21,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 export class AngularImagePickerComponent implements OnInit {
 
   private manipulationLayerObserver;
-  private initialModelImage;
+  private initialModelImages;
 
   @Input() debug: boolean;
   @Input() multiple = false;
@@ -77,7 +77,10 @@ export class AngularImagePickerComponent implements OnInit {
   // From ControlValueAccessor interface
   writeValue(value: any) {
     if (value !== this.value) {
-      this.initialModelImage = value;
+      if (this.multiple) {
+        this.initialModelImages = Array.isArray(value) ? value : [value];
+      }
+      this.initialModelImages = value;
     }
   }
 
@@ -117,7 +120,7 @@ export class AngularImagePickerComponent implements OnInit {
       this.fileUpload.nativeElement.value = '';
     }
     this.files = undefined;
-    this.value = this.initialModelImage || undefined;
+    this.value = this.initialModelImages || undefined;
   }
 
   private refreshValue = () => {
@@ -147,9 +150,7 @@ export class AngularImagePickerComponent implements OnInit {
         this.manipulationLayerObserver.unsubscribe();
       }
       this.manipulationLayerObserver = this.manipulatedImages.changes.subscribe(() => {
-        console.log('asdfas')
         this.manipulatedImages.toArray().forEach((image: AngularImagePickerImageComponent) => {
-
           image.value.subscribe(this.refreshValue);
         });
       });

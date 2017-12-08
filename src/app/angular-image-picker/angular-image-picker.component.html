@@ -1,6 +1,17 @@
 <div class="image-picker-wrapper">
-	<div *ngIf="(initialModelImage && !changeImageMode) else pickImages">
-		<img [src]="initialModelImage" (click)="changeImageMode = true" class="initial-img">
+	<div *ngIf="(initialModelImages && !changeImageMode) else pickImages">
+
+		<div [ngSwitch]="multiple ? true : false" class="click" (click)="changeImageMode = true">
+			<div *ngSwitchCase="true" class="multiple-images-container">
+				<div class="multiple-images-image" *ngFor="let initialModelImage of initialModelImages">
+					<img [src]="initialModelImage">
+				</div>
+			</div>
+			<div *ngSwitchCase="false">
+				<img [src]="initialModelImages">
+			</div>
+		</div>
+
 	</div>
 
 	<ng-template #pickImages>

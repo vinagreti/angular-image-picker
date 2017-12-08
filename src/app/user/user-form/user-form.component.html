@@ -1,11 +1,6 @@
 <form class="user-form" role="form" (submit)="save()" [formGroup]="userForm" >
 
-    <tzd-angular-image-picker name="avatar" formControlName="avatar" [multiple]="false" type="blob" [debug]="true" (close)="changeImageMode = false"></tzd-angular-image-picker>
-<!--     <div *ngIf="!user.avatar || changeImageMode else userAvatar"> -->
-<!--     </div> -->
-<!--     <ng-template #userAvatar> -->
-<!--         <img [src]="user.avatar" (click)="changeImageMode = true"> -->
-<!--     </ng-template> -->
+    <tzd-angular-image-picker name="avatar" formControlName="avatar" [multiple]="multiple" type="blob" [debug]="true" (close)="changeImageMode = false"></tzd-angular-image-picker>
 
     <md-input-container>
         <input mdInput type="text" name="name" formControlName="name" placeholder="name" autofocus="true" tabindex="1"/>

@@ -21,6 +21,8 @@ export class UserFormComponent implements OnInit {
 
     changeImageMode: boolean;
 
+    multiple = true;
+
     constructor(
         private route: ActivatedRoute,
         private formBuilder: FormBuilder,
