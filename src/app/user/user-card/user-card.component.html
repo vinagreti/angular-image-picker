@@ -1,6 +1,6 @@
 <div class="user-card click" [routerLink]="[user?.id]">
 
-  <img class="avatar" *ngIf="user?.avatar[0]" [src]="user?.avatar[0]">
+  <img class="avatar" *ngIf="user?.avatar?.length" [src]="user?.avatar[0]">
 
 	<a class="user-name">{{user?.name}} ({{user?.username}})</a>
 	<span class="flex-spacer"></span>
