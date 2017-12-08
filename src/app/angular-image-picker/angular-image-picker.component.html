@@ -1,4 +1,5 @@
 <div class="image-picker-wrapper">
+
 	<div *ngIf="(initialModelImages && !changeImageMode) else pickImages">
 
 		<div [ngSwitch]="multiple ? true : false" class="click" (click)="changeImageMode = true">

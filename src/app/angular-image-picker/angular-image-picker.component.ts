@@ -79,7 +79,7 @@ export class AngularImagePickerComponent implements OnInit {
 
   // From ControlValueAccessor interface
   writeValue(value: any) {
-    if (value !== this.value) {
+    if (value && value !== this.initialModelImages) {
       if (this.multiple) {
         this.initialModelImages = Array.isArray(value) ? value : [value];
       } else {
