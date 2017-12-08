@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MdChipsModule } from '@angular/material';
+import { MatChipsModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 
 // Components
@@ -25,7 +25,7 @@ describe('UserCardComponent', () => {
       imports: [
           ConfirmationDialogModule,
           JsonStorageModule,
-          MdChipsModule,
+          MatChipsModule,
           RouterTestingModule
       ],
       providers: [

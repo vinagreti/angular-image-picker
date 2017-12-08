@@ -1,13 +1,13 @@
 import { NgModule, ViewContainerRef } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MdButtonModule, MdDialogModule, MdDialogRef } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatDialogRef } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ConfirmationDialogComponent } from './confirmation-dialog.component';
 import { ConfirmationDialogService } from './confirmation-dialog.service';
 
 // Helper class
-class MdDialogRefMock {
+class MatDialogRefMock {
 }
 
 describe('ConfirmationDialogComponent', () => {
@@ -20,12 +20,12 @@ describe('ConfirmationDialogComponent', () => {
                 ConfirmationDialogComponent
             ],
             imports: [
-                MdButtonModule,
-                MdDialogModule,
+                MatButtonModule,
+                MatDialogModule,
             ],
             providers: [
                 ConfirmationDialogService,
-                { provide: MdDialogRef, useClass: MdDialogRefMock }
+                { provide: MatDialogRef, useClass: MatDialogRefMock }
             ]
         })
         .compileComponents();

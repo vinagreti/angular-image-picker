@@ -1,11 +1,11 @@
-<md-toolbar color="primary" class="main-toolbar">
+<mat-toolbar color="primary" class="main-toolbar">
   <a routerLink="/" class="tootlbar-title">{{title}}</a>
   <span class="flex-spacer"></span>
-  <button md-button *ngIf="(userService.user?.pluck('id') | async)" type="button" routerLink="/user">Users</button>
-  <button md-button *ngIf="(userService.user?.pluck('id') | async)" type="button" routerLink="/image">Images</button>
-  <button md-button *ngIf="!(userService.user?.pluck('id') | async)" type="button" routerLink="/user/login">Sign in</button>
-  <button md-button *ngIf="(userService.user?.pluck('id') | async)" type="button" (click)="userService.logout()">Sign out</button>
-</md-toolbar>
+  <button mat-button *ngIf="(userService.user?.pluck('id') | async)" type="button" routerLink="/user">Users</button>
+  <button mat-button *ngIf="(userService.user?.pluck('id') | async)" type="button" routerLink="/image">Images</button>
+  <button mat-button *ngIf="!(userService.user?.pluck('id') | async)" type="button" routerLink="/user/login">Sign in</button>
+  <button mat-button *ngIf="(userService.user?.pluck('id') | async)" type="button" (click)="userService.logout()">Sign out</button>
+</mat-toolbar>
 
 <div class="main-content">
     <router-outlet></router-outlet>

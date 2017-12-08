@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MdButtonModule, MdDialogModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule } from '@angular/material';
 
 import { ConfirmationDialogComponent } from './confirmation-dialog.component';
 import { ConfirmationDialogService } from './confirmation-dialog.service';
@@ -8,8 +8,8 @@ import { ConfirmationDialogService } from './confirmation-dialog.service';
 @NgModule({
   imports: [
     CommonModule,
-    MdButtonModule,
-    MdDialogModule,
+    MatButtonModule,
+    MatDialogModule,
   ],
   declarations: [
       ConfirmationDialogComponent

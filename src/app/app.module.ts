@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MdButtonModule, MdIconModule, MdSidenavModule, MdToolbarModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -38,10 +38,10 @@ import 'hammerjs';
     GuardModule,
     JsonStorageModule,
     HttpModule,
-    MdButtonModule,
-    MdIconModule,
-    MdSidenavModule,
-    MdToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatToolbarModule,
   ],
   providers: [
     UserService

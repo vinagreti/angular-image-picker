@@ -1,6 +1,6 @@
 <div class="image-component-wrapper">
     <div class="center">
-      <button md-raised-button color="primary" (click)="multiple = !multiple">
+      <button mat-raised-button color="primary" (click)="multiple = !multiple">
         <span [ngSwitch]="multiple ? true : false">
           <span *ngSwitchCase="true">Multiple</span>
           <span *ngSwitchCase="false">Single</span>

@@ -16,8 +16,8 @@
 
 	<ng-template #pickImages>
 		<div *ngIf="files">
-			<button type="button" md-mini-fab color="default" (click)="onClose()">
-				<md-icon>close</md-icon>
+			<button type="button" mat-mini-fab color="default" (click)="onClose()">
+				<mat-icon>close</mat-icon>
 			</button>
 			<div *ngFor="let file of files; let i = index;" class="tzd-image-picker-image">
 				<tzd-image-picker-image
@@ -34,11 +34,11 @@
 		</form>
 
 		<div *ngIf="!files" class="text-center">
-			<button type="button" md-mini-fab color="accent" (click)="fileUpload.click(); $event.stopPropagation();">
-				<md-icon>add</md-icon>
+			<button type="button" mat-mini-fab color="accent" (click)="fileUpload.click(); $event.stopPropagation();">
+				<mat-icon>add</mat-icon>
 			</button>
-			<button type="button" md-mini-fab color="default" (click)="onClose()">
-				<md-icon>close</md-icon>
+			<button type="button" mat-mini-fab color="default" (click)="onClose()">
+				<mat-icon>close</mat-icon>
 			</button>
 			<div [ngSwitch]="multiple ? true : false">
 				<p *ngSwitchCase="true">Select one or more images</p>

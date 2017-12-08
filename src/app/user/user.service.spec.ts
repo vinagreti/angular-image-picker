@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MdButtonModule, MdCheckboxModule, MdChipsModule, MdIconModule, MdInputModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatChipsModule, MatIconModule, MatInputModule } from '@angular/material';
 
 // Components
 import { UserCardComponent } from './user-card/user-card.component';
@@ -37,11 +37,11 @@ describe('UserService', () => {
                 CustomPipesModule,
                 FormsModule,
                 JsonStorageModule,
-                MdButtonModule,
-                MdCheckboxModule,
-                MdChipsModule,
-                MdIconModule,
-                MdInputModule,
+                MatButtonModule,
+                MatCheckboxModule,
+                MatChipsModule,
+                MatIconModule,
+                MatInputModule,
                 ReactiveFormsModule,
                 RouterTestingModule,
                 UserRoutingModule,

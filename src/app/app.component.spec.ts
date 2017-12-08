@@ -1,6 +1,6 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { TestBed, async } from '@angular/core/testing';
-import { MdButtonModule, MdIconModule, MdSidenavModule, MdToolbarModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
 
 // Global Components
 import { AppComponent } from './app.component';
@@ -32,10 +32,10 @@ describe('AppComponent', () => {
                 ConfirmationDialogModule,
                 GuardModule,
                 JsonStorageModule,
-                MdButtonModule,
-                MdIconModule,
-                MdSidenavModule,
-                MdToolbarModule,
+                MatButtonModule,
+                MatIconModule,
+                MatSidenavModule,
+                MatToolbarModule,
             ],
             providers: [
                 { provide: APP_BASE_HREF, useValue: '/' },

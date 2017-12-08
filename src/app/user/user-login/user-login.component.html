@@ -2,25 +2,25 @@
     <h1>Sign in</h1>
     <form role="form" (submit)="login()" [formGroup]="loginForm">
 
-        <md-input-container>
-            <input mdInput type="text" name="username" formControlName="username" placeholder="username" />
-            <md-hint *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.notMatch">
+        <mat-input-container>
+            <input matInput type="text" name="username" formControlName="username" placeholder="username" />
+            <mat-hint *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.notMatch">
                     User and password not match
-            </md-hint>
-            <md-hint *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.required">
+            </mat-hint>
+            <mat-hint *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.required">
                     Please fill the Username field
-            </md-hint>
-        </md-input-container>
+            </mat-hint>
+        </mat-input-container>
 
-        <md-input-container>
-            <input mdInput type="password" name="password" formControlName="password" placeholder="password" />
-            <md-hint *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.reuired">
+        <mat-input-container>
+            <input matInput type="password" name="password" formControlName="password" placeholder="password" />
+            <mat-hint *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.reuired">
                     Please fill the Password field
-            </md-hint>
-        </md-input-container>
+            </mat-hint>
+        </mat-input-container>
 
         <p>
-            <button md-raised-button type="submit" color="primary" [disabled]="!loginForm.valid">Sign-in</button>
+            <button mat-raised-button type="submit" color="primary" [disabled]="!loginForm.valid">Sign-in</button>
         </p>
 
     </form>

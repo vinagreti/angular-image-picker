@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { MdChipsModule, MdIconModule, MdInputModule } from '@angular/material';
+import { MatChipsModule, MatIconModule, MatInputModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 
 // Components
@@ -31,9 +31,9 @@ describe('UserListComponent', () => {
                 CustomPipesModule,
                 FormsModule,
                 JsonStorageModule,
-                MdChipsModule,
-                MdIconModule,
-                MdInputModule,
+                MatChipsModule,
+                MatIconModule,
+                MatInputModule,
                 RouterTestingModule
             ],
             providers: [

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MdButtonModule, MdCheckboxModule, MdChipsModule, MdIconModule, MdInputModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatChipsModule, MatIconModule, MatInputModule } from '@angular/material';
 
 // Components
 import { UserCardComponent } from './user-card/user-card.component';
@@ -39,11 +39,11 @@ import { UserService } from './user.service';
         CustomPipesModule,
         FormsModule,
         JsonStorageModule,
-        MdButtonModule,
-        MdCheckboxModule,
-        MdChipsModule,
-        MdIconModule,
-        MdInputModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatChipsModule,
+        MatIconModule,
+        MatInputModule,
         ReactiveFormsModule,
         UserRoutingModule,
         ValidatorModule,

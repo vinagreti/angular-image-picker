@@ -90,7 +90,6 @@ private startImageForm() {
   });
 
   this.imageForm.controls.blueScale.valueChanges
-  .debounceTime(200)
   .subscribe((blueScale) => {
     if (this.effectName) {
       this.loadImages();
@@ -98,7 +97,6 @@ private startImageForm() {
   });
 
   this.imageForm.controls.greenScale.valueChanges
-  .debounceTime(200)
   .subscribe((greenScale) => {
     if (this.effectName) {
       this.loadImages();
@@ -106,7 +104,6 @@ private startImageForm() {
   });
 
   this.imageForm.controls.redScale.valueChanges
-  .debounceTime(200)
   .subscribe((redScale) => {
     if (this.effectName) {
       this.loadImages();
@@ -114,7 +111,6 @@ private startImageForm() {
   });
 
   this.imageForm.controls.brightnessScale.valueChanges
-  .debounceTime(200)
   .subscribe((brightnessScale) => {
     if (this.effectName) {
       this.loadImages();

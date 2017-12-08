@@ -15,10 +15,10 @@
     <h3>Choose an effect</h3>
 
     <div style="display: flex; justify-content: space-around; flex-flow: row wrap; align-items: stretch;">
-        <button style="margin: 8px 2px;" *ngFor="let effect of effects" type="button" md-raised-button color="accent" (click)="setEffect(effect)">
+        <button style="margin: 8px 2px;" *ngFor="let effect of effects" type="button" mat-raised-button color="accent" (click)="setEffect(effect)">
             {{effect}}
         </button>
-        <button style="margin: 8px 2px;" type="button" md-raised-button color="default" (click)="setEffect(undefined)">
+        <button style="margin: 8px 2px;" type="button" mat-raised-button color="default" (click)="setEffect(undefined)">
             Reset
         </button>
     </div>
@@ -27,20 +27,20 @@
         <div *ngIf="effectName == 'Manual'">
             <div>
                 <p class="adjustment-label">Redscalse</p>
-                <md-slider name="redScale" formControlName="redScale" placeholder="Redscalse" min="-255" max="255" step="5" thumb-label="true"></md-slider>
+                <mat-slider name="redScale" formControlName="redScale" placeholder="Redscalse" min="-255" max="255" step="5" thumb-label="true"></mat-slider>
             </div>
             <div>
                 <p class="adjustment-label">Greenscalse</p>
-                <md-slider name="greenScale" formControlName="greenScale" placeholder="Greenscalse" min="-255" max="255" step="5" thumb-label="true"></md-slider>
+                <mat-slider name="greenScale" formControlName="greenScale" placeholder="Greenscalse" min="-255" max="255" step="5" thumb-label="true"></mat-slider>
             </div>
             <div>
                 <p class="adjustment-label">Bluescalse</p>
-                <md-slider name="blueScale" formControlName="blueScale" placeholder="Bluescalse" min="-255" max="255" step="5" thumb-label="true"></md-slider>
+                <mat-slider name="blueScale" formControlName="blueScale" placeholder="Bluescalse" min="-255" max="255" step="5" thumb-label="true"></mat-slider>
             </div>
         </div>
         <div *ngIf="effectName != 'Manual' && effectName != 'Grey' && effectName != 'Light-Grey'">
             <p class="adjustment-label">Effect Scale</p>
-            <md-slider name="brightnessScale" formControlName="brightnessScale" placeholder="Effect Scale" min="-255" max="255" step="5" thumb-label="true"></md-slider>
+            <mat-slider name="brightnessScale" formControlName="brightnessScale" placeholder="Effect Scale" min="-255" max="255" step="5" thumb-label="true"></mat-slider>
         </div>
     </form>
 

@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MdButtonModule, MdCheckboxModule, MdIconModule, MdInputModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatIconModule, MatInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -28,10 +28,10 @@ describe('UserFormComponent', () => {
           BrowserAnimationsModule,
           ConfirmationDialogModule,
           JsonStorageModule,
-          MdButtonModule,
-          MdCheckboxModule,
-          MdIconModule,
-          MdInputModule,
+          MatButtonModule,
+          MatCheckboxModule,
+          MatIconModule,
+          MatInputModule,
           ReactiveFormsModule,
           RouterTestingModule,
           ValidatorModule

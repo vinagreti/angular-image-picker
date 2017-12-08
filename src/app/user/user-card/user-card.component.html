@@ -4,7 +4,7 @@
 
 	<a class="user-name">{{user?.name}} ({{user?.username}})</a>
 	<span class="flex-spacer"></span>
-	<md-chip-list *ngIf="user?.username != 'admin'">
-	  <md-chip color="warn" [selected]="user?.isAdmin" (click)="toggleAdmin($event, user)">Admin</md-chip>
-	</md-chip-list>
+	<mat-chip-list *ngIf="user?.username != 'admin'">
+	  <mat-chip color="warn" [selected]="user?.isAdmin" (click)="toggleAdmin($event, user)">Admin</mat-chip>
+	</mat-chip-list>
 </div>

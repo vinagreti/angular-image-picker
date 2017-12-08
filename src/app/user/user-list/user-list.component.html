@@ -1,26 +1,26 @@
 <div class="wide-central-shape">
 	<div class="wide-central-title">
-		<a md-mini-fab color="primary" routerLink="/user/insert" *ngIf="(userService.user?.pluck('isAdmin') | async)">
-			<md-icon>add</md-icon>
+		<a mat-mini-fab color="primary" routerLink="/user/insert" *ngIf="(userService.user?.pluck('isAdmin') | async)">
+			<mat-icon>add</mat-icon>
 		</a>
 		<span class="flex-spacer"></span>
 		<h1>Users</h1>
 		<span class="flex-spacer"></span>
-		<button md-mini-fab color="default" type="button" (click)="toggleFilter()">
-			<md-icon>search</md-icon>
+		<button mat-mini-fab color="default" type="button" (click)="toggleFilter()">
+			<mat-icon>search</mat-icon>
 		</button>
 	</div>
 
 	<hr />
 
-	<md-input-container *ngIf="showFilter">
-		<input mdInput
+	<mat-input-container *ngIf="showFilter">
+		<input matInput
 		[(ngModel)]="searchString"
 		type="text"
 		name="searchString"
 		placeholder="Search by name or username..."
 		#searchStringField />
-	</md-input-container>
+	</mat-input-container>
 
 	<ul *ngFor="let user of (userService.users | async) | filter:{name:searchString, username:searchString}">
 		<li><user-card [user]="user"></user-card></li>

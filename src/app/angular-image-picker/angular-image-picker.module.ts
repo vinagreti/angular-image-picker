@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MdButtonModule, MdIconModule, MdProgressBarModule, MdSliderModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatProgressBarModule, MatSliderModule } from '@angular/material';
 import { AngularImagePickerComponent } from './angular-image-picker.component';
 import { AngularImagePickerImageComponent } from './angular-image-picker-image/angular-image-picker-image.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -12,10 +12,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    MdButtonModule,
-    MdIconModule,
-    MdSliderModule,
-    MdProgressBarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSliderModule,
+    MatProgressBarModule,
   ],
   declarations: [
     AngularImagePickerComponent,
