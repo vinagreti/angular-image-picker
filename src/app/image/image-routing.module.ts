@@ -9,9 +9,9 @@ const _authRoutes: Routes = [
 
   { path: '', component: ImageCenterComponent,
     children: [
-	  	{ path: 'add', component: ImageDetailComponent },
-	  	{ path: ':id/detail', component: ImageDetailComponent },
-	  	{ path: '', component: ImageComponent },
+      { path: 'add', component: ImageDetailComponent },
+      { path: ':id/detail', component: ImageDetailComponent },
+      { path: '', component: ImageComponent },
     ]
   }
 ];

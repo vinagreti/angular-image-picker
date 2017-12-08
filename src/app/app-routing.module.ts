@@ -6,7 +6,10 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './static-pages/page-not-found.component';
 
 export const appRoutes: Routes = [
-  { path: '',  component: HomeComponent},
+
+  { path: '', loadChildren: './image/image.module#ImageModule' },
+
+  { path: 'home',  component: HomeComponent},
 
   { path: 'user', loadChildren: './user/user.module#UserModule' },
 

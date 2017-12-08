@@ -8,7 +8,7 @@ import { UserService } from './user/user.service';
 })
 export class AppComponent implements OnInit {
 
-  title = 'UsersApp';
+  title = 'Angular Image Picker Demo';
 
   constructor(
     public userService: UserService
