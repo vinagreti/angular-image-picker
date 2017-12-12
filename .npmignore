@@ -1,0 +1,6 @@
+*
+!dist
+!dist/
+!dist/*
+!dist/**/*
+!index.ts
